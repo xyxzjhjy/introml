@@ -4,17 +4,24 @@
 
 Below is the sequence of topics used in the class.  Of course, students not enrolled in 
 the class are free to browse in any order they wish.  Right now,
-we have very little material.  But, more will be added over the course of the class.
+several units are empty.  But, more will be added over the course of the class.
 
-Ultimately, each topic will have a **demo** where the concepts are illustrated.
-The demos are covered in the class lectures.  After the lectures, the students complete a similar
-exercise on a new dataset in the **lab** at home.  Note the demos do not 
-generally cover
+Ultimately, most topics will have a **demo** where the concepts are illustrated.
+The demos are covered in the class lectures.  
+After the lectures, the students complete a similar
+exercise on a new dataset in the **lab** at home.
+Some demos have a component that is done in class.
+The demos do not generally cover
 all topics, since some concepts are left for the students to figure out 
 for themselves in the labs.  Also, as you will observe, the labs are 
-just empty skeletons with `TODO` markers that the students fill in.  Students will be 
-provided the full solutions in class.  If you are an instructor
-and wish copies of the solutions for yourself, please contact Sundeep Rangan at <srangan@nyu.edu>.
+just empty skeletons with `TODO` markers that the students fill in.
+In addition to the lab, most units will have a **homework** which
+focuses on more analytic problems.  Students will be 
+provided the full solutions to the homeworks and labs in class
+as well as the lecture notes.
+If you are an instructor
+and wish copies of the solutions for yourself,
+please contact Sundeep Rangan at <srangan@nyu.edu>.
 
 * [Setting up python, jupyter and github](./Basics/setup.md)
     * [Set up a local machine](./Basics/setup.md)
@@ -48,10 +55,14 @@ and wish copies of the solutions for yourself, please contact Sundeep Rangan at 
 * [Unit 6:  Support vector machines](./svm/readme.md)
     * [Demo 6:  MNIST digit classification](./svm/mnist_svm.ipynb)
     * [Lab 6: Extended MNIST with letters](./svm/lab06_ext_mnist_partial.ipynb)
-* Unit 7: Neural networks and the Keras package
-    * [Demo: First neural network in Keras](./neural/synthetic.ipynb)
-    * More to be added
+    * Homework 6 [[pdf]](./svm/hw/HW6_svm.pdf) [[Latex]](./svm/hw/HW6_svm.tex)
+* [Unit 7: Neural networks with Keras and Tensorflow](./neural/readme.md)
+    * [Demo 7.1: First neural network in Keras](./neural/synthetic.ipynb)
+    * [Demo 7.2: MNIST neural network classification](./neural/mnist_neural.ipynb)
+    * Lab 7:  Music instrument classification.  To be added.
 * Unit 8:  Convolutional and deep networks
+    * [Setting up a GPU instance](./GCP/gpu_setup.md) (Optional)
+    * More to be added.
 * Unit 9:  PCA (To be added)
 * Unit 10:  Clustering and EM (To be added)
     
