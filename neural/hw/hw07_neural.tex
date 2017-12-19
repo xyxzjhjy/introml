@@ -236,10 +236,10 @@ Neural Network Notes with Solved Problems}
 
 \section{Description of Neural Networks}
 \begin{itemize}
-\item Neural networks refer to a general class of models for making predictions on 
-data.  The key feature of neural networks is that the input data is processed in 
+\item Neural networks refer to a general class of models for making predictions on
+data.  The key feature of neural networks is that the input data is processed in
 multiple stages, called \emph{layers}.  The parameters in each layer are \emph{trained}
-or \emph{learned} from examples.  This multi-layer processing 
+or \emph{learned} from examples.  This multi-layer processing
 with trainable parameters in each layer is loosely inspired by biological neural systems.
 \item To describe the neural network, let $\xbf$ denote the input vector and
 let $y$ denote the target variable that we wish to predict from $\xbf$.
@@ -747,7 +747,7 @@ Outside this region, $z^\out < 0$.  Hence, $z^O \geq 0$ only in the region
 
 \end{enumerate}
 
-\item 
+\item
 \begin{enumerate}[(a)]
 \item Assuming we represent the image pixels as a vector,
 the input size is $N_i=20\x20=400$.  Since this is a multi-class classification problem
@@ -756,13 +756,13 @@ the output map $g_{\rm out}(\cdot)$.    The number of hidden units $N_h$
 and the activation $g_{\rm act}(\cdot)$ are free to choose
 
 \item The input size is $N_i=120$. Since this is a binary classification problem,
-we would generally take $N_o=1$ and use a sigmoid output for 
+we would generally take $N_o=1$ and use a sigmoid output for
 $g_{\rm out}(\cdot)$.    The number of hidden units $N_h$
 and the activation $g_{\rm act}(\cdot)$ are free to choose.
 
 \item We would take $N_i=5$ for the stock prices for the last five days.
 Since this is a regression problem predicting a scalar value, we would take
-$N_o=1$ and use an identity activation, $g_{\rm out}(z)=z$ (i.e.\ there is 
+$N_o=1$ and use an identity activation, $g_{\rm out}(z)=z$ (i.e.\ there is
 no activation).
 Again, the number of hidden units $N_h$
 and the activation $g_{\rm act}(\cdot)$ are free to choose.
@@ -795,7 +795,7 @@ In this case,
 \begin{python}
     Zo = Uh.dot(Wo.T) + bo[None,:]
     expZo = np.exp(Zo)
-    Uo = expZo / np.sum(expZo,axis=1)[None,:]
+    Uo = expZo / np.sum(expZo,axis=1)[:,None]
 \end{python}
 Note the method for normalizing the outputs in a softmax classifier.
 
@@ -926,9 +926,10 @@ This can often be combined with chain rule.
 \]
 so that both $\ubf$ and $\zbf$ are $N$-dimensional vectors.
 \begin{enumerate}[(a)]
-\item What is the gradient $\partial J/\partial \zbf$?
-\item If $\zbf = \Wbf\xbf + \bbf$, what are the gradients $\partial J/\partial \Wbf$ and $\partial J/\partial \bbf$?
-\item In part (b), what is $\partial J/\partial \xbf$?
+\item What is the gradient $\partial \ubf/\partial \zbf$?
+\item If $\zbf = \Wbf\xbf + \bbf$, what are the gradients $\partial \ubf/\partial \Wbf$ and
+$\partial \ubf/\partial \bbf$?
+\item In part (b), what is $\partial \ubf/\partial \xbf$?
 \end{enumerate}
 
 \item Let
@@ -968,10 +969,10 @@ $2 \x 3$ matrix with the partial derivatives:
 
 \item Using chain rule,
 \begin{align*}
-    \frac{\partial J}{\partial w_j} &= \frac{\partial J}{\partial z_i}\frac{\partial z_i}{\partial w_j} =
+    \frac{\partial J}{\partial w_j} &= \sum_i \frac{\partial J}{\partial z_i}\frac{\partial z_i}{\partial w_j} = \sum_i
         \frac{\partial J}{\partial z_i}x_{ij}, \\
-    \frac{\partial J}{\partial b} &= \frac{\partial J}{\partial z_i}\frac{\partial z_i}{\partial b} =
-        \frac{\partial J}{\partial z_i},
+    \frac{\partial J}{\partial b} &= \sum_i \frac{\partial J}{\partial z_i}\frac{\partial z_i}{\partial b} =
+        \sum_i \frac{\partial J}{\partial z_i},
 \end{align*}
 where $\partial J/\partial z_i$ is given in part (a).
 \end{enumerate}
@@ -1026,17 +1027,19 @@ Hence, the components of the gradient $\partial J/\partial \zbf$ are,
 
 \item Using chain rule with \eqref{eq:gradlinvec},
 \[
-    \frac{\partial u_i}{\partial W_{ij}} = \frac{\partial u_i}{\partial z_i}\frac{\partial z_i}{\partial W_{ij}} = 2(z_i-y_i)x_j,
+    \frac{\partial L}{\partial W_{ij}} = \frac{\partial L}{\partial z_i}\frac{\partial z_i}{\partial W_{ij}} = 2(z_i-y_i)x_j,
 \]
 and
 \[
-    \frac{\partial u_i}{\partial b_i} = \frac{\partial u_i}{\partial z_i}\frac{\partial z_i}{\partial b_i} = 2(z_i-y_i).
+    \frac{\partial L}{\partial b_i} = \frac{\partial L}{\partial z_i}\frac{\partial z_i}{\partial b_i} = 2(z_i-y_i).
 \]
 
 
 \item We again use chain rule with \eqref{eq:gradlinvec},
 \[
-    \frac{\partial u_i}{\partial x_j} = \frac{\partial u_i}{\partial z_i}\frac{\partial z_i}{\partial x_j} = 2(z_i-y_i)W_{ij}.
+    \frac{\partial L}{\partial x_j} = \sum_i 
+    \frac{\partial L}{\partial z_i}\frac{\partial z_i}{\partial x_j} = 
+    2  \sum_i (z_i-y_i)W_{ij}.
 \]
 \end{enumerate}
 \end{enumerate}
@@ -1388,7 +1391,7 @@ Applying chain rule,
     = \sum_{i=1}^N  \frac{\partial L}{\partial \hat{y}_i}u_{ij} \\
     \frac{\partial L}{\partial u_{ij}} &=
     \frac{\partial L}{\partial \hat{y}_i}\frac{\partial \hat{y}_i}{\partial u_{ij}}
-    = \sum_{i=1}^N  \frac{\partial L}{\partial \hat{y}_i}\alpha_j.
+    =  \frac{\partial L}{\partial \hat{y}_i}\alpha_j.
 \end{align*}
 
 \item $\ubf \arr \zbf$: Since $u_{ij} = \exp(z_{ij})$, we have the derivative,
